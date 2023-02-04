@@ -5,7 +5,7 @@ Using Harmony, we patch uMod's CallHook function to signal a plugin that an Null
 This looks for an exception, which is normally logged to the server logs, and adds yet another CallHook:
 
 ```cs
-void Interface.Oxide.CallHook(string pluginName)
+void Interface.Oxide.CallHook("OnFoundNRE", string pluginName)
 ```
 
 At this point (Feb 2023), we are only able to signal the plugin that caused the NRE, but this might be adjustable to call out to other plugins for further diagnostics.
@@ -15,6 +15,16 @@ This patch is very small, and operates as an unloadable patch in a plugin format
 ## USAGE
 
 This is only useful for devs who may wish to integrate automated logging, etc. for their plugins in cases where NRE's are found.
+
+In your plugin, add the following:
+
+```cs
+	private void OnFoundNRE(string plugin)
+	{
+		// Do something in response to the NRE, e.g.:
+		// debug = true;
+	}
+```
 
 ## Design Goal
 
