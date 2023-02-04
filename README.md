@@ -1,6 +1,6 @@
 # NREHook
 
-Using Harmony, we patch uMod's CallHook function to signal a plugin that an NRE has occurred in the plugin.
+Using Harmony, we patch uMod's CallHook function to signal a plugin that an NullReferenceException has occurred in the plugin.
 
 This looks for an exception, which is normally logged to the server logs, and adds yet another CallHook:
 
@@ -11,6 +11,10 @@ void Interface.Oxide.CallHook(string pluginName)
 At this point (Feb 2023), we are only able to signal the plugin that caused the NRE, but this might be adjustable to call out to other plugins for further diagnostics.
 
 This patch is very small, and operates as an unloadable patch in a plugin format.
+
+## USAGE
+
+This is only useful for devs who may wish to integrate automated logging, etc. for their plugins in cases where NRE's are found.
 
 ## Design Goal
 
