@@ -49,21 +49,20 @@ namespace Oxide.Plugins
         [HarmonyPatch(typeof(Plugin), "CallHook")]
         public static class CallHookPatch
         {
-            [HarmonyPrefix]
-            private static void Prefix(Plugin __instance, ref string hook, ref object[] args)
-            {
-                // Debug use only
-                if (hook == "OnFoundNRE")
-                {
-                    string argString = "";
-                    foreach(var arg in args)
-                    {
-                        argString += arg.GetType().Name + "(" + arg.ToString() + "), ";
-                    }
-                    UnityEngine.Debug.LogWarning($"CallHook {__instance.Name}:{hook} {args.Length} args: {argString.TrimEnd(',', ' ')}");
-                    //Interface.Oxide.CallHook(hook, argString); ?? LOOP!!!!
-                }
-            }
+            //[HarmonyPrefix]
+            //private static void Prefix(Plugin __instance, ref string hook, ref object[] args)
+            //{
+            //    // Debug use only
+            //    if (hook == "OnFoundNRE")
+            //    {
+            //        string argString = "";
+            //        foreach(var arg in args)
+            //        {
+            //            argString += arg.GetType().Name + "(" + arg.ToString() + "), ";
+            //        }
+            //        UnityEngine.Debug.LogWarning($"CallHook {__instance.Name}:{hook} {args.Length} args: {argString.TrimEnd(',', ' ')}");
+            //    }
+            //}
 
             [HarmonyTranspiler]
             private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instr, ILGenerator il)
