@@ -1,1 +1,20 @@
 # NREHook
+
+Using Harmony, we patch uMod's CallHook function to signal a plugin that an NRE has occurred in the plugin.
+
+This looks for an exception, which is normally logged to the server logs, and adds yet another CallHook:
+
+```cs
+void Interface.Oxide.CallHook(string pluginName)
+```
+
+At this point (Feb 2023), we are only able to signal the plugin that caused the NRE, but this might be adjustable to call out to other plugins for further diagnostics.
+
+This patch is very small, and operates as an unloadable patch in a plugin format.
+
+## Design Goal
+
+The purpose of this plugin was to help diagnose a long-standing issue with my plugin, NextGenPVE.  With this patch, I can now (optionally) enable debugging at the point that the NRE occurs.
+
+I am adding a function to accept feedback from this new hook so that I can temporarily enable debugging for 30 seconds.
+
