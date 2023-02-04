@@ -30,12 +30,12 @@ using System.Diagnostics;
 
 namespace Oxide.Plugins
 {
-    [Info("NREHook", "RFC1920", "1.0.1")]
+    [Info("NREHook", "RFC1920", "1.0.2")]
     [Description("Insert hook to be called on NRE")]
     internal class NREHook : RustPlugin
     {
         HarmonyInstance _harmony;
-        private bool logAllHooks = true;
+        //private bool logAllHooks = true;
 
         private void Init()
         {
@@ -87,7 +87,7 @@ namespace Oxide.Plugins
                     // CallHook(string hook, params object[] args)
                     // Currently getting args plugin name, plugin function called (Name, ldarg_1)
                     // This should be ok, since the called function in the case of a real hook would be, e.g., OnEntityTakeDamage
-                    System.Reflection.ConstructorInfo constr = typeof(OxideMod).GetConstructors().First();
+                    //System.Reflection.ConstructorInfo constr = typeof(OxideMod).GetConstructors().First();
                     List<CodeInstruction> toInsert = new List<CodeInstruction>()
                     {
                         new CodeInstruction(OpCodes.Ldarg_0),
@@ -104,6 +104,7 @@ namespace Oxide.Plugins
                         new CodeInstruction(OpCodes.Ldarg_1),
                         new CodeInstruction(OpCodes.Stelem_Ref),
                         new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(Plugin), "CallHook")),
+                        //new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(Interface), "CallHook")),
                         new CodeInstruction(OpCodes.Pop)
                     };
                     codes.InsertRange(startIndex, toInsert);
