@@ -32,3 +32,6 @@ The purpose of this plugin was to help diagnose a long-standing issue with my pl
 
 I am adding a function to accept feedback from this new hook so that I can temporarily enable debugging for 30 seconds.
 
+## Caveat
+
+This can negatively impact performance.  As with any debugging, use cautiously.
