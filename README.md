@@ -35,3 +35,5 @@ I am adding a function to accept feedback from this new hook so that I can tempo
 ## Caveat
 
 This can negatively impact performance.  As with any debugging, use cautiously.
+
+Also note that this is inserted globally for ALL HOOKS.  However, unloading the plugin should remove that, as would a reboot.
