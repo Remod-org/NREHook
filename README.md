@@ -38,4 +38,4 @@ This can negatively impact performance.  As with any debugging, use cautiously.
 
 Also note that this is inserted globally for ALL HOOKS.  However, unloading the plugin should remove that, as would a reboot.
 
-On some providers, loading this at boot time may prevent the server from starting.
+<b>On some providers, loading this at boot time may prevent the server from starting.</b>
