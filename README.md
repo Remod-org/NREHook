@@ -32,8 +32,10 @@ The purpose of this plugin was to help diagnose a long-standing issue with my pl
 
 I am adding a function to accept feedback from this new hook so that I can temporarily enable debugging for 30 seconds.
 
-## Caveat
+## Caveats
 
 This can negatively impact performance.  As with any debugging, use cautiously.
 
 Also note that this is inserted globally for ALL HOOKS.  However, unloading the plugin should remove that, as would a reboot.
+
+On some providers, loading this at boot time may prevent the server from starting.
