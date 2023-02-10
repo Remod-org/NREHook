@@ -23,21 +23,18 @@ using System.Collections.Generic;
 using Oxide.Core.Plugins;
 using System.Reflection.Emit;
 using Harmony;
-using Oxide.Core;
-using System.Linq;
-using System.Diagnostics;
 //Reference: 0Harmony
 
 namespace Oxide.Plugins
 {
-    [Info("NREHook", "RFC1920", "1.0.2")]
+    [Info("NREHook", "RFC1920", "1.0.3")]
     [Description("Insert hook to be called on NRE")]
     internal class NREHook : RustPlugin
     {
         HarmonyInstance _harmony;
         //private bool logAllHooks = true;
 
-        private void Init()
+        private void OnServerInitialized()
         {
             _harmony = HarmonyInstance.Create(Name + "PATCH");
             Type patchType = AccessTools.Inner(typeof(NREHook), "CallHookPatch");
@@ -90,6 +87,7 @@ namespace Oxide.Plugins
                     //System.Reflection.ConstructorInfo constr = typeof(OxideMod).GetConstructors().First();
                     List<CodeInstruction> toInsert = new List<CodeInstruction>()
                     {
+                        //new CodeInstruction(OpCodes.Newobj, constr),
                         new CodeInstruction(OpCodes.Ldarg_0),
                         new CodeInstruction(OpCodes.Ldstr, "OnFoundNRE"),
                         new CodeInstruction(OpCodes.Ldc_I4_2),
