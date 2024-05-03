@@ -22,27 +22,18 @@ using System;
 using System.Collections.Generic;
 using Oxide.Core.Plugins;
 using System.Reflection.Emit;
-using Harmony;
+using HarmonyLib;
 //Reference: 0Harmony
 
 namespace Oxide.Plugins
 {
-    [Info("NREHook", "RFC1920", "1.0.3")]
+    [Info("NREHook", "RFC1920", "1.0.4")]
     [Description("Insert hook to be called on NRE")]
     internal class NREHook : RustPlugin
     {
-        HarmonyInstance _harmony;
         //private bool logAllHooks = true;
 
-        private void OnServerInitialized()
-        {
-            _harmony = HarmonyInstance.Create(Name + "PATCH");
-            Type patchType = AccessTools.Inner(typeof(NREHook), "CallHookPatch");
-            new PatchProcessor(_harmony, patchType, HarmonyMethod.Merge(patchType.GetHarmonyMethods())).Patch();
-
-            Puts($"Applied Patch: {patchType.Name}");
-        }
-
+        [AutoPatch]
         [HarmonyPatch(typeof(Plugin), "CallHook")]
         public static class CallHookPatch
         {
@@ -110,7 +101,5 @@ namespace Oxide.Plugins
                 return codes;
             }
         }
-
-        private void Unload() => _harmony.UnpatchAll(Name + "PATCH");
     }
 }
